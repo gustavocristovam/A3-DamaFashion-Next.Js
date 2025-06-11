@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import ProtectedLayout from '@/components/ProtectedLayout';
 import { productService } from '@/services/productService';
 import { stockService } from '@/services/stockService';
-import { Product, Stock } from '@/types';
+import { categoryService } from '@/services/categoryService';
+import { Product, Stock, Category } from '@/types';
 import { FaBoxOpen, FaShoppingBag, FaTag, FaTruck } from 'react-icons/fa';
 import Link from 'next/link';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -12,19 +13,22 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 export default function DashboardPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [stocks, setStocks] = useState<Stock[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [productsData, stocksData] = await Promise.all([
+        const [productsData, stocksData, categoriesData] = await Promise.all([
           productService.getAll(),
-          stockService.getAll()
+          stockService.getAll(),
+          categoryService.getAll()
         ]);
         
         setProducts(productsData);
         setStocks(stocksData);
+        setCategories(categoriesData);
       } catch (err) {
         setError('Erro ao carregar dados do dashboard');
         console.error(err);
@@ -165,7 +169,7 @@ export default function DashboardPage() {
                       R$ {product.price.toFixed(2)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {product.category?.name}
+                      {categories.find(cat => cat.id === product.categoryId)?.name || 'N/A'}
                     </td>
                   </tr>
                 ))}
