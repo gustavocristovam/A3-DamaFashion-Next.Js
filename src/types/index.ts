@@ -30,13 +30,13 @@ export interface Product {
   name: string;
   price: number;
   description?: string;
-  category: Category;
-  supplier: Supplier;
+  categoryId: number;
+  supplierId: number;
   stock?: Stock;
 }
 
 export interface Stock {
   id?: number;
   quantity: number;
-  product?: Product;
+  productId: number;
 }

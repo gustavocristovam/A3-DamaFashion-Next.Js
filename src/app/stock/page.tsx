@@ -83,7 +83,7 @@ export default function StockPage() {
     try {
       const stockData: Stock = {
         quantity: parseInt(data.quantity),
-        product: { id: parseInt(data.productId) } as Product,
+        productId: parseInt(data.productId),
       };
 
       if (editingStock) {

@@ -71,11 +71,11 @@ export default function ProductsPage() {
     setEditingProduct(product);
     
     if (product) {
-      setValue('name', product.name);
+      setValue('name', product.name); 
       setValue('price', product.price.toString());
       setValue('description', product.description || '');
-      setValue('categoryId', product.category.id?.toString() || '');
-      setValue('supplierId', product.supplier.id?.toString() || '');
+      setValue('categoryId', product.categoryId?.toString() || '');
+      setValue('supplierId', product.supplierId?.toString() || '');
     } else {
       reset();
     }
@@ -95,8 +95,8 @@ export default function ProductsPage() {
         name: data.name,
         price: parseFloat(data.price),
         description: data.description,
-        category: { id: parseInt(data.categoryId) } as Category,
-        supplier: { id: parseInt(data.supplierId) } as Supplier,
+        categoryId: parseInt(data.categoryId),
+        supplierId: parseInt(data.supplierId),
       };
 
       if (editingProduct) {
@@ -183,10 +183,10 @@ export default function ProductsPage() {
                     R$ {product.price.toFixed(2)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {product.category?.name}
+                    {categories.find(cat => cat.id === product.categoryId)?.name || 'N/A'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {product.supplier?.name}
+                    {suppliers.find(sup => sup.id === product.supplierId)?.name || 'N/A'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <button
