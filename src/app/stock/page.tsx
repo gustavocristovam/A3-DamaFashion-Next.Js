@@ -105,21 +105,7 @@ export default function StockPage() {
     }
   };
 
-  const handleDelete = async (id: number) => {
-    if (window.confirm('Tem certeza que deseja excluir este registro de estoque?')) {
-      try {
-        await stockService.delete(id);
-        setSuccess('Registro de estoque excluído com sucesso!');
-        fetchData();
-        
-        // Limpar mensagem de sucesso após 3 segundos
-        setTimeout(() => setSuccess(null), 3000);
-      } catch (err) {
-        setError('Erro ao excluir registro de estoque');
-        console.error(err);
-      }
-    }
-  };
+ 
 
   // Função para obter o nome do produto pelo ID
   const getProductName = (productId: number | undefined) => {
@@ -200,12 +186,6 @@ export default function StockPage() {
                       className="text-blue-600 hover:text-blue-900 mr-3"
                     >
                       <FaEdit />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(stock.id!)}
-                      className="text-red-600 hover:text-red-900"
-                    >
-                      <FaTrash />
                     </button>
                   </td>
                 </tr>

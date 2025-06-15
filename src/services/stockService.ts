@@ -20,9 +20,5 @@ export const stockService = {
   update: async (id: number, quantity: number): Promise<Stock> => {
     const response = await api.put<Stock>(`/stocks/${id}`, quantity);
     return response.data;
-  },
-  
-  delete: async (id: number): Promise<void> => {
-    await api.delete(`/stocks/${id}`);
   }
 };
