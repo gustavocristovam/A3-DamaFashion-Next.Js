@@ -64,7 +64,7 @@ export default function StockPage() {
     setEditingStock(stock);
     
     if (stock) {
-      setValue('productId', stock.product?.id?.toString() || '');
+      setValue('productId', stock.productId?.toString() || '');
       setValue('quantity', stock.quantity.toString());
     } else {
       reset();
@@ -87,7 +87,7 @@ export default function StockPage() {
       };
 
       if (editingStock) {
-        await stockService.update(editingStock.id!, stockData);
+        await stockService.update(editingStock.id!, parseInt(data.quantity));
         setSuccess('Estoque atualizado com sucesso!');
       } else {
         await stockService.create(stockData);
@@ -174,7 +174,7 @@ export default function StockPage() {
                     {stock.id}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {getProductName(stock.product?.id)}
+                    {getProductName(stock.productId)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {stock.quantity}

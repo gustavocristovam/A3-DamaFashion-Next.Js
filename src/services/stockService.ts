@@ -17,8 +17,8 @@ export const stockService = {
     return response.data;
   },
   
-  update: async (id: number, stock: Stock): Promise<Stock> => {
-    const response = await api.put<Stock>(`/stocks/${id}`, stock);
+  update: async (id: number, quantity: number): Promise<Stock> => {
+    const response = await api.put<Stock>(`/stocks/${id}`, quantity);
     return response.data;
   },
   
